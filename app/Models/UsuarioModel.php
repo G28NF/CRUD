@@ -26,7 +26,7 @@ class UsuarioModel extends Model
         'cep'           => 'required|string|regex[/^[0-9]{5}-[0-9]{3}$/]',
         'logradouro'    => 'required|string|max_length[250]',
         'numero'        => 'required|string|max_length[10]',
-        'complemento'   => 'required|string|max_length[250]',
+        'complemento'   => 'permit_empty|string|max_length[250]',
         'bairro'        => 'required|string|max_length[250]',
         'cidade'        => 'required|string|max_length[250]',
         'uf'            => 'required|string|exact_length[2]',
