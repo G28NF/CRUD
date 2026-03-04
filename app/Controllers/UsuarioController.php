@@ -16,7 +16,7 @@ class UsuarioController extends BaseController
 
     public function create()
     {
-        $usuario = $this->request->getPost('dados');
+        $usuario = $this->request->getPost('');
 
         if(empty($usuario)) {
             return redirect()->back()->with('error', 'Dados do usuário não fornecidos.');
