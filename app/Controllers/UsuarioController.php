@@ -5,13 +5,14 @@ use App\Models\UsuarioModel;
 
 class UsuarioController extends BaseController
 {
+    protected $usuarioModel;
+
     public function index()
     {
-        $usuarios = $this->usuarioModel->findAll();
-        return view('home', [
-        'usuarios' => $usuarios
-        ]);
+        $usuarios = $this->read();
+        return view('home', ['usuarios' => $usuarios]);
     }
+
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
@@ -49,7 +50,7 @@ class UsuarioController extends BaseController
     public function read()
     {
         $usuarios = $this->usuarioModel->findAll();
-        return view('usuarios/list', ['usuarios' => $usuarios]);
+        return $usuarios;
     }
 
     public function update()
