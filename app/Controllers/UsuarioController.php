@@ -76,17 +76,19 @@ class UsuarioController extends BaseController
 
     public function delete()
     {
-        $usuario = $this->request->getPost('dados');
+        $usuario = $this->request->getPost('id');
 
         if(empty($usuario)) {
             return redirect()->back()->with('error', 'Dados do usuário não fornecidos.');
         }
 
-        if($usuario['senha'] !== $this->usuarioModel->where('email', $usuario['email'])->first()['senha']) {
-            return redirect()->back()->with('error', 'Senha incorreta.');
+        $usuario = $this->usuarioModel->where('id', $usuario)->first();
+
+        if(!$usuario){
+        return redirect()->back()->with('erro', 'Usuário não encontrado.');
         }
 
-        $this->usuarioModel->where('email', $usuario['email'])->delete();
+        $this->usuarioModel->delete($usuario['id']);
 
         return redirect()->back()->with('success', 'Usuário deletado com sucesso.');
     }

@@ -127,13 +127,14 @@
                         <td><?= $usuario['uf'] ?></td>
                         <td>
 
-                            <a href="/usuario/editar/<?= $usuario['id'] ?>" class="btn btn-warning btn-sm">
+                            <a href="/home/editar/<?= $usuario['id'] ?>" class="btn btn-warning btn-sm">
                                 Editar
                             </a>
 
-                            <a href="/usuario/excluir/<?= $usuario['id'] ?>" class="btn btn-danger btn-sm">
-                                Excluir
-                            </a>
+                            <form action="<?= site_url('home/delete') ?>" method="post">
+                                <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+                                <button class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
 
                         </td>
                     </tr>
