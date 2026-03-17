@@ -48,32 +48,32 @@
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <label class="form-label">logradouro</label>
+                            <label class="form-label">Logradouro</label>
                             <input type="text" name="logradouro" id="logradouro" class="form-control" required>
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <label class="form-label">numero</label>
+                            <label class="form-label">Número</label>
                             <input type="text" name="numero" id="numero" class="form-control" required>
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <label class="form-label">complemento</label>
+                            <label class="form-label">Complemento</label>
                             <input type="text" name="complemento" id="complemento" class="form-control">
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <label class="form-label">bairro</label>
+                            <label class="form-label">Bairro</label>
                             <input type="text" name="bairro" id="bairro" class="form-control"required>
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <label class="form-label">cidade</label>
+                            <label class="form-label">Cidade</label>
                             <input type="text" name="cidade" id="cidade" class="form-control"required>
                         </div>
 
                         <div class="col-md-3 mb-3">
-                            <label class="form-label">uf</label>
+                            <label class="form-label">UF</label>
                             <input type="text" name="uf" id="uf" class="form-control"required>
                         </div>
                     </div>

@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         <form method="post" action="<?= base_url('home/update') ?>">
-          <input type="hidden" name="id" id="editar_id">
+          <input type="hidden" name="id" id="editar_id" required>
           <div class="mb-2">
             <label>Nome</label>
             <input type="text" name="nome" id="editar_nome" class="form-control" required>
