@@ -55,21 +55,15 @@ class UsuarioController extends BaseController
 
     public function update()
     {
-        $usuario = $this->request->getPost('dados');
+        $usuario = $this->request->getPost();
 
-        if(empty($usuario)) {
+        if (empty($usuario)){
             return redirect()->back()->with('error', 'Dados do usuário não fornecidos.');
         }
 
-        if(!$this->usuarioModel->where('email', $usuario['email'])->first()) {
-            return redirect()->back()->with('error', 'Usuário não encontrado.');
+        if (!$this->usuarioModel->update($usuario['id'], $usuario)) {
+            return redirect()->back()->with('error', 'Erro ao atualizar usuário.');
         }
-
-        if($usuario['senha'] !== $this->usuarioModel->where('email', $usuario['email'])->first()['senha']) {
-            return redirect()->back()->with('error', 'Senha incorreta.');
-        }
-
-        $this->ususarioModel->where('email', $usuario['email'])->update($usuario);
 
         return redirect()->back()->with('success', 'Usuário atualizado com sucesso.');
     }
@@ -91,5 +85,10 @@ class UsuarioController extends BaseController
         $this->usuarioModel->delete($usuario['id']);
 
         return redirect()->back()->with('success', 'Usuário deletado com sucesso.');
+    }
+
+    public function buscar($id)
+    {
+        return $this->response->setJSON($this->usuarioModel->find($id));
     }
 }
