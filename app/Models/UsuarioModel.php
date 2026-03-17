@@ -19,11 +19,11 @@ class UsuarioModel extends Model
 
     // Validation
     protected $validationRules = [
-        'nome'          => 'required|string|min_length[10]|max_length[250]',
-        'nascimento'    => 'required|date',
-        'email'         => 'required|string|min_length[9]|max_length[250]|is_unique[usuarios.email]',
-        'senha'         => 'required|numeric|min_length[6]|max_length[250]',
-        'cep'           => 'required|string|min_length[10]|max_length[10]',
+        'nome'          => 'required|min_length[3]|max_length[250]',
+        'nascimento'    => 'required|valid_date',
+        'email'         => 'required|valid_email|min_length[6]|max_length[250]|is_unique[usuarios.email]',
+        'senha'         => 'required|min_length[1]|max_length[250]',
+        'cep'           => 'required|string|min_length[9]|max_length[10]',
         'logradouro'    => 'required|string|max_length[250]',
         'numero'        => 'required|string|max_length[10]',
         'complemento'   => 'permit_empty|string|max_length[250]',

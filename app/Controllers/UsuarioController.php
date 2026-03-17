@@ -7,7 +7,10 @@ class UsuarioController extends BaseController
 {
     public function index()
     {
-        return view('home');
+        $usuarios = $this->usuarioModel->findAll();
+        return view('home', [
+        'usuarios' => $usuarios
+        ]);
     }
     public function __construct()
     {
@@ -26,9 +29,21 @@ class UsuarioController extends BaseController
             return redirect()->back()->with('error', 'Email já cadastrado.');
         }
 
-        $this->usuarioModel->insert($usuario);
-
-        return redirect()->back()->with('success', 'Usuário criado com sucesso.');
+        $this->usuarioModel->insert([
+            'nome' => $usuario['nome'],
+            'nascimento' => $usuario['nascimento'],
+            'email' => $usuario['email'],
+            'senha' => $usuario['senha'],
+            'cep' => $usuario['cep'],
+            'logradouro' => $usuario['logradouro'],
+            'numero' => $usuario['numero'],
+            'complemento' => $usuario['complemento'] ?? null,
+            'bairro' => $usuario['bairro'],
+            'cidade' => $usuario['cidade'],
+            'uf' => $usuario['uf']
+        ]);
+        
+        return redirect()->to('/home')->with('success', 'Usuário cadastrado com sucesso.');
     }
 
     public function read()
