@@ -4,6 +4,9 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css">
         <title>Cadastro de Usuário</title>
     </head>
 
@@ -155,7 +158,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-
+console.log('toast rodando');
   document.querySelectorAll('.btn-editar').forEach(btn => {
     btn.addEventListener('click', function () {
 
@@ -180,30 +183,50 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-    document.getElementById('cep').addEventListener('blur', async function () {
+  document.getElementById('cep').addEventListener('blur', async function () {
     let cep = this.value.replace(/\D/g, '');
 
     if (cep.length !== 8) return;
 
     try {
-        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-        const data = await response.json();
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const data = await response.json();
 
-        if (data.erro) {
-            alert('CEP não encontrado');
-            return;
-        }
+      if (data.erro) {
+        alert('CEP não encontrado');
+        return;
+      }
 
-        document.getElementById('logradouro').value = data.logradouro;
-        document.getElementById('bairro').value = data.bairro;
-        document.getElementById('cidade').value = data.localidade;
-        document.getElementById('numero').value = data.numero;
-        document.getElementById('uf').value = data.uf;
-        document.getElementById('numero').focus();
+      document.getElementById('logradouro').value = data.logradouro;
+      document.getElementById('bairro').value = data.bairro;
+      document.getElementById('cidade').value = data.localidade;
+      document.getElementById('uf').value = data.uf;
+      document.getElementById('numero').focus();
 
     } catch (e) {
-        console.error('Erro ao buscar CEP');
+      console.error('Erro ao buscar CEP');
     }
-});
+  });
+
+  <?php if (session()->has('error')): ?>
+      <?php foreach ((array)session('error') as $erro): ?>
+          $.toast({
+            heading: 'Erro',
+            text: '<?= session('error') ?>',
+            icon: 'error',
+            position: 'top-center'
+        });
+      <?php endforeach; ?>
+  <?php endif; ?>
+
+  <?php if (!session()->has('error') && session()->has('success')): ?>
+      $.toast({
+          heading: 'Sucesso',
+          text: '<?= session('success') ?>',
+          icon: 'success'
+          position: 'top-center'
+      });
+  <?php endif; ?>
+
 });
 </script>
