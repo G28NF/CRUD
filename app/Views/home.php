@@ -161,10 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       let id = this.dataset.id;
 
-      fetch('/CRUD/public/index.php/home/buscar/' + id)
-        .then(res => res.json())
-        .then(data => {
-
+      fetch('/CRUD/public/index.php/home/buscar/' + id).then(res => res.json()).then(data => {
           document.getElementById('editar_id').value = data.id;
           document.getElementById('editar_nome').value = data.nome;
           document.getElementById('editar_senha').value = data.senha;
@@ -180,9 +177,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
           new bootstrap.Modal(document.getElementById('modalEditar')).show();
         });
-
     });
   });
 
+    document.getElementById('cep').addEventListener('blur', async function () {
+    let cep = this.value.replace(/\D/g, '');
+
+    if (cep.length !== 8) return;
+
+    try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await response.json();
+
+        if (data.erro) {
+            alert('CEP não encontrado');
+            return;
+        }
+
+        document.getElementById('logradouro').value = data.logradouro;
+        document.getElementById('bairro').value = data.bairro;
+        document.getElementById('cidade').value = data.localidade;
+        document.getElementById('numero').value = data.numero;
+        document.getElementById('uf').value = data.uf;
+        document.getElementById('numero').focus();
+
+    } catch (e) {
+        console.error('Erro ao buscar CEP');
+    }
+});
 });
 </script>

@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\UsuarioModel;
 
+use App\Models\UsuarioModel;
+use App\Libraries\ApiViaCEP;
 class UsuarioController extends BaseController
 {
     protected $usuarioModel;
+    protected $viaCep;
 
     public function index()
     {
@@ -16,6 +18,7 @@ class UsuarioController extends BaseController
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
+        $this->viaCep = new ApiViaCEP();
     }
 
     public function create()
@@ -90,5 +93,18 @@ class UsuarioController extends BaseController
     public function buscar($id)
     {
         return $this->response->setJSON($this->usuarioModel->find($id));
+    }
+
+    public function buscarCep()
+    {
+        $cep = $this->request->getPost('cep');
+
+        if(empty($cep)) {
+            return $this->response->setJSON(null);
+        }
+
+        $dados = $viaCep->buscarCep($cep);
+
+        return $this->response->setJSON($dados);
     }
 }
